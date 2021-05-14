@@ -22,3 +22,8 @@ kubectl get pods --namespace <NAME_SPACE>
 ```
 kubectl get pods --all-namespaces
 ```
+
+### Create Namespace
+```
+kubectl create namespace <NAME>
+```
