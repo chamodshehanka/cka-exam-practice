@@ -23,3 +23,10 @@ When draining a node, you may need to ignore daemonsets(pods that are tied to ea
 kubectl drain <NODE_NAME> --ignore-daemonsets
 ```
 
+## Uncordoning a Node
+When drain purpose done. We can allow pods to run on the node again
+
+```
+kubectl uncordon <NODE_NAME>
+```
+
