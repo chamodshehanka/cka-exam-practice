@@ -16,3 +16,9 @@ To save dry run output to a file.
 kubectl create deployment nginx --image=nginx --dry-run -o yaml > nginx.yaml
 ```
 
+#### Record Command
+To record that used to make a change.
+```
+kubectl scale deployment nginx --replicas=3 --record
+```
+Then use describe to see the change and records.
