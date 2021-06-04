@@ -42,3 +42,34 @@ ClusterRoleBinding - Binds a role to a user or group across all namespaces.
 kubectl create rolebinding pod-reader-role-binding --role=pod-reader --dry-run -o yaml > pod-reader-role-binding.yaml
 ```
 
+### Service Account
+In K8s, a service account is an account used my containers processes within Pods to authenticate with the K8s API.
+If your pods need to communicate with the API, you need to create a service account.
+
+We can manage access control for service accounts using ClusterRoleBindings or ClusterRole.
+
+```
+kubectl create serviceaccount my-service-account --dry-run -o yaml > my-service-account.yaml
+```
+or 
+```
+kubectl create sa my-service-account --dry-run -o yaml > my-service-account.yaml
+```
+
+Then create a role binding to bind that permission with role binding
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sa-rolebinding
+  namespace: dev
+subjects:
+- kind: ServiceAccount
+  name: my-service-account
+  namespace: dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-reader
+```
