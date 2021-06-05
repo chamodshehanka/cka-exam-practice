@@ -58,7 +58,7 @@ kubectl create sa my-service-account --dry-run -o yaml > my-service-account.yaml
 
 Then create a role binding to bind that permission with role binding
 
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
