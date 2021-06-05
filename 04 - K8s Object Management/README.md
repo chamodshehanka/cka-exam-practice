@@ -73,3 +73,38 @@ roleRef:
   kind: Role
   name: pod-reader
 ```
+
+### Kubernetes Metrics Server
+Kubernetes provides a metrics server that can be used to monitor the cluster.
+
+#### Kubernetes top
+
+With kubernetes top, you can see the resource usage of the cluster. Kubectl top supports flags like ```--sort``` and ```--selector```
+
+```
+kubectl top pods --sort-by=cpu --selector=app=nginx
+```
+
+1. Apply Metrics Server in Control Plane Node
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+
+2. Verify Metrics Server Installation
+```
+kubectl get --raw /apis/metrics.k8s.io/
+```
+
+3. Get Pods metrics
+```
+kubectl top pod --all-namespaces
+```
+```
+kubectl top pod --sort-by=cpu --all-namespaces
+```
+```
+kubectl top pod --sort-by=cpu -n dev
+```
+```
+kubectl top node
+```
