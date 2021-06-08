@@ -83,6 +83,8 @@ Always: This is the default policy. Container will be restarted if it crashes or
 OnFailure: Container will be restarted only if it crashes.
 Never: Container will never be restarted.
 
+Always Restart Policy Pod
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -99,3 +101,22 @@ spec:
     command: ['sh', '-c', 'sleep 10']
 
 ```
+
+On Failure Restart Policy Pod
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: onfailure-restart-pod
+  labels:
+    name: onfailure-restart-pod
+  namespace: dev
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: busybox
+    image: busybox
+    command: ['sh', '-c', 'sleep 10'] # ['sh', '-c', 'sleep 10; THIS SHHSHHHSHHS']  this will failed the pod
+```
+
