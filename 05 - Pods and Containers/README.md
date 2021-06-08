@@ -32,7 +32,7 @@ Readiness probe: allow to determine whether or not a container is ready to recei
 
 Liveness probes examples are below
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -54,7 +54,7 @@ spec:
 
 with http 
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -74,3 +74,28 @@ spec:
       periodSeconds: 5
 ```
 Other probes yaml definition is same only difference is when the probe is executed.
+
+
+## Self healing pods with restart policies
+
+### Restart Policies
+Always: This is the default policy. Container will be restarted if it crashes or unhealthy.
+OnFailure: Container will be restarted only if it crashes.
+Never: Container will never be restarted.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: always-restart-pod
+  labels:
+    name: always-restart-pod
+  namespace: dev
+spec:
+  restartPolicy: Always # No need to provide this in yaml since this is the default
+  containers:
+  - name: busybox
+    image: busybox
+    command: ['sh', '-c', 'sleep 10']
+
+```
