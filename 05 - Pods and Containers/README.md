@@ -188,3 +188,22 @@ busybox is writing the log and sidecar is reading the log.
 ## Init Containers
 
 Init containers are used to perform initialization before the main container is started.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-pod
+  labels:
+    name: init-pod
+  namespace: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  initContainers:
+    - name: delay
+      image: busybox
+      command: ["sleep", "3000"]
+```
+
