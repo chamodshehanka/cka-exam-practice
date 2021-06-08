@@ -120,3 +120,71 @@ spec:
     command: ['sh', '-c', 'sleep 10'] # ['sh', '-c', 'sleep 10; THIS SHHSHHHSHHS']  this will failed the pod
 ```
 
+## Mulicontainer Pod
+
+A K8s Pod which has more than 1 container.
+
+__Keep Containers seprarated unless they need to share the same resources__
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi-container-pod
+  labels:
+    name: multi-container-pod
+  namespace: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  - name: redis
+    image: redis
+  - name: couchbase
+    image: couchbase
+```
+
+Sidecar
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sidecar-pod
+  labels:
+    name: sidecar-pod
+  namespace: dev
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - sh
+      - -c
+      - while true; do echo logs data > /output/output.log; sleep 5; done
+    volumeMounts:
+      - name: shared-volume
+        mountPath: /output  
+  - name: sidecar
+    image: busybox
+    command:
+      - sh
+      - -c
+      - tail -f /input/output.log
+    volumeMounts:
+      - name: shared-volume
+        mountPath: /input
+  volumes:
+    - name: shared-volume
+      emptyDir: {}
+```
+
+To Read the sidecar logs
+```
+kubectl logs sidecar-pod -c sidecar -n dev
+```
+busybox is writing the log and sidecar is reading the log.
+
+## Init Containers
+
+Init containers are used to perform initialization before the main container is started.
