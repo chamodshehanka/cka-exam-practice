@@ -88,3 +88,32 @@ spec:
         memory: "128Mi"
         cpu: "500m"
 ```
+
+## Using DaemonSets
+
+DaemonSet - Automatically runs a copy of a Pod on each node.
+also run copy of Pod on new nodes as they are added to the cluster.
+
+### DaemonSets and Scheduling
+We can combine DaemonSet with Scheduling
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: my-daemonset
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: my-daemonset
+  template:
+    metadata:
+      labels:
+        app: my-daemonset
+    spec:
+      containers:
+        - name: nginx
+          image: nginx   
+```
+
