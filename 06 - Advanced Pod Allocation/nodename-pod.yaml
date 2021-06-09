@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodename-pod
+  labels:
+    name: nodename-pod
+  namespace: dev
+spec:
+  nodeName: gke-chamod-default-pool-7c9d38c3-89wt
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
