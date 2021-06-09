@@ -1,5 +1,9 @@
 # Pods and Containers
 
+```
+kubectl run deployment busybox --image=busybox --restart=Never -o yaml --dry-run=client
+```
+
 ## Managing Application Configuration
 When running an app on K8s, we may want to pass dynamic values to the app. <br/>
 1. <b>ConfigMaps</b> to pass values to the app. ConfigMaps stores key-value pairs.
