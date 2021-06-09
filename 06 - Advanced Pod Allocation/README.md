@@ -117,3 +117,32 @@ spec:
           image: nginx   
 ```
 
+## Using Static Pods
+
+Static Pod - A pod that is managed by directly by the kubelet on a node, not by the K8s API server. They can run even if there is no K8s API server present.
+
+Mirror Pod - Kubelet will create a mirror Pod for each static Pod. Mirror allow you to see the status of the static Pod via K8s API. But you cannot change or manage them via API.
+
+```
+sudo vi /etc/kubernetes/manifests/my-static-poy.yaml
+```
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-static-pod
+  labels:
+    name: my-static-pod
+  namespace: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+```
+
+Wait till kubernetes detect the file change or simply restart the kubelet
+```
+sudo systemctl restart kubelet
+```
+
