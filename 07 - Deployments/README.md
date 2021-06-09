@@ -31,3 +31,37 @@ spec:
         resources: {}
 status: {}
 ```
+
+## Scaling Deployments
+
+1. Editing yaml and apply 
+2. Kubernetes Scale Command
+```
+kubectl scale deployment.v1.apps/my-deployment --replicas=3
+```
+
+## Rolling Pods
+Gradually replacing new pods for old pods
+
+```
+kubectl edit deployment my-deployment -n dev 
+```
+
+```
+kubectl rollout status deployment.v1.apps/my-deployment -n dev
+```
+
+Another way
+```
+kubectl set image deployment.v1.apps/my-deployment -n dev nginx=nginx:latest
+```
+
+To view the history
+```
+kubectl rollout history deployment.v1.apps/my-deployment -n dev
+```
+
+To undo // --to-revision is optional
+```
+kubectl rollout undo deployment.v1.apps/my-deployment -n dev --to-revision=2 
+```
