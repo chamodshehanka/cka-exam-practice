@@ -11,7 +11,6 @@ Before that it checks
 Node Selector - We can configure a **nodeSelector** for your pods to limit which Node(s) the Pod can be scheduled on.
 Node selctor use node lables to filter nodes.
 
-
 Using node name
 ```yaml
 apiVersion: v1
