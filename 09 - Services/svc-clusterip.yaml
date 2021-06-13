@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: svc-cluster-ip
+  name: svc-cluster-ip
+  namespace: dev
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  selector:
+    app: svc-cluster-ip
+  type: ClusterIP
