@@ -78,3 +78,15 @@ spec:
     app: svc-nodeport
   type: NodePort
 ```
+
+# Discovering Services with DNS
+
+K8s DNS assign DNS names to Services, allowing application within the cluster to easily locate them.
+
+A service's fully qualified domain name has the following format:
+```
+service-name.namespace.svc.cluster.cluster-domain.example
+```
+
+The default cluster domain is `cluster.local`.
+
