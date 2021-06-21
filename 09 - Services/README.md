@@ -9,6 +9,8 @@ ServiceType - Every service has a type. The ServiceType determines how and where
 * LoadBalancer - Exposes a service via the cloud provider's load balancer.
 * ExternalName - Exposes a service via an arbitrary name. (Outside the CKA scope)
 
+* ClusterIP - 
+
 Create a deployment to try out a Service.
 
 ```yaml
@@ -89,4 +91,34 @@ service-name.namespace.svc.cluster.cluster-domain.example
 ```
 
 The default cluster domain is `cluster.local`.
+
+## K8s Ingress
+
+Ingress is a declarative configuration for routing traffic to services.
+
+```
+kubectl create ingress my-ingress --rule=local/api/v1=my-service:8080 --dry-run=client -o yaml
+```
+
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  namespace: dev
+spec:
+  rules:
+  - host: local
+    http:
+      paths:
+      - backend:
+          service:
+            name: my-service
+            port:
+              number: 8080
+        path: /api/v1
+        pathType: Exact
+status:
+  loadBalancer: {}
+```
 
