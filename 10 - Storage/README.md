@@ -79,3 +79,28 @@ To view the second container logs
 ```
 kubectl logs shared-volume-pod -c busybox2 -n dev
 ```
+
+## Persistent Volumes 
+
+### Storage Classes
+Storage classes allow k8s admins to specify the types of storage services they offer on their platform.
+
+```
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: localdisk
+provisioner: kubernetes.io/no-provisioner
+```
+
+we can create StorageClass called slow to describe low performance storage but inexpensive storage. but another called fast for high performance storage but more constly resources.
+
+#### Allow Volume Expansion
+The `allowVolumeExpansion` field specifies whether the storage class allows volume expand. If set to `false`, the storage class will not allow volume expand. If set to `true`, the storage class will allow volume expand. If not specified, the default value is `false`.
+
+#### ReClaim Policy
+The `reclaimPolicy` field specifies the reclaim policy of the storage class. The default value is `Delete`.
+
+* Retain: The storage is not reclaimed by the system. Admins has to manually delete the storage.
+* Delete: The storage is reclaimed by the system.
+* Recycle: The storage is reclaimed and recycled.

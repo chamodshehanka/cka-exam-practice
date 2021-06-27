@@ -1,0 +1,17 @@
+kind: PersistentVolume
+metadata:
+  name: mypv
+spec:
+  capacity:
+    storage: {2:<Size>}
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /tmp
+    server: 172.17.0.2

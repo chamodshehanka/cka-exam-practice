@@ -13,7 +13,12 @@ spec:
     volumeMounts:
     - name: my-volume
       mountPath: /output
+    resources:
+      limits:
+        cpu: "0.1"
+        
   restartPolicy: Never
+
   volumes:
     - name: my-volume
       hostPath:
