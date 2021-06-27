@@ -85,7 +85,7 @@ kubectl logs shared-volume-pod -c busybox2 -n dev
 ### Storage Classes
 Storage classes allow k8s admins to specify the types of storage services they offer on their platform.
 
-```
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -104,3 +104,33 @@ The `reclaimPolicy` field specifies the reclaim policy of the storage class. The
 * Retain: The storage is not reclaimed by the system. Admins has to manually delete the storage.
 * Delete: The storage is reclaimed by the system.
 * Recycle: The storage is reclaimed and recycled.
+
+Example 
+
+First create storage class
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: localdisk
+provisioner: kubernetes.io/no-provisioner
+allowVolumeExpansion: true
+```
+
+Then create a peristent volume
+```yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: my-pv
+spec:
+  storageClassName: localdisk
+  persistentVolumeClaim: Recycle
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /var/output
+```
